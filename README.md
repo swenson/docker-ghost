@@ -1,15 +1,14 @@
-docker-ghost
-============
+# docker-ghost
 
 Run the ghost blogging platform in a Docker container.
 
-Simply modify the `config.js` sample config file for your blog,
-and build and launch the container.
+## Directions
 
-Important note: you have to make sure that your `config.js` is set to listen on
-`0.0.0.0` instead of `127.0.0.1`, or the port will not be forward correctly.
+Put your `config.js` file and your `content` folder in a folder together,
+such as `ghostdata` (for your configuration, images, themes, plugins, etc.).
+
+You want to mount this folder as `/ghostdata` when you run the Docker image.
 
 ```
-docker build -t ghost .
-docker run -d ghost
+docker run -d -v ghostdata:/ghostdata swenson/ghost
 ```

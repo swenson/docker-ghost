@@ -1,6 +1,6 @@
 # Ghost
-# VERSION	1.0
-# See http://github.com/swenson/docker-ghost for source and license.
+# VERSION	1.1
+# See http://github.com/swenson/docker-ghost for usage, source, and license.
 
 from ubuntu
 maintainer Christopher Swenson <chris@caswenson.com>
@@ -23,9 +23,10 @@ run mkdir -p ghost
 run cd ghost && unzip -qq /tmp/ghost.zip && cd ..
 run cd ghost && npm install --production
 
-# use our ghost config file
-add config.js ghost/config.js
+# delete the default content
+run rm -rf /ghost/content
 
-# start ghost
-entrypoint cd ghost && NODE_ENV=production npm start
+# link the user content and config in and start ghost
+# patch 127.0.0.1 -> 0.0.0.0 to make it work inside docker
+entrypoint cd ghost && sed -e 's/127\.0\.0\.1/0.0.0.0/g' /ghostdata/config.js > /ghost/config.js &&ln -s /ghostdata/content && NODE_ENV=production npm start
 expose 2368
