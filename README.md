@@ -10,5 +10,5 @@ such as `ghostdata` (for your configuration, images, themes, plugins, etc.).
 You want to mount this folder as `/ghostdata` when you run the Docker image.
 
 ```
-docker run -d -v ghostdata:/ghostdata swenson/ghost
+docker run -d -v ~/ghostdata:/ghostdata swenson/ghost
 ```
